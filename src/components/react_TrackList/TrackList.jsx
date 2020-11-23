@@ -1,6 +1,6 @@
 import React from 'react';
-
+import './TrackList.scss'
 
 export function TrackList(){
-    return (<div title='track-list'>TrackList</div>);
+    return (<div data-testid='track-list'>TrackList</div>);
 }
