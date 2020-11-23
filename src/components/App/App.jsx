@@ -1,8 +1,9 @@
 import React from "react";
-import './App.scss';
 import { SearchBar } from "../react_SearchBar/SearchBar";
 import { SearchResults } from "../react_SearchResults/SearchResults";
 import { Playlist } from "../react_Playlist/Playlist";
+
+import './App.scss';
 
 export function App(){
     return (
