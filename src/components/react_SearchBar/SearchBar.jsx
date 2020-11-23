@@ -4,5 +4,10 @@ import './SearchBar.scss'
 
 export function SearchBar(){
 
-    return (<div title='search-bar'>Search Bar</div>);
+    return (
+        <div className="SearchBar">
+            <input placeholder="Enter A Song, Album, or Artist"/>
+            <button className="SearchButton">SEARCH</button>
+        </div>
+    );
 }

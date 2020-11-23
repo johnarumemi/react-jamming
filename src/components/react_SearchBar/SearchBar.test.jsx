@@ -4,15 +4,30 @@ import { SearchBar } from "./SearchBar";
 
 
 describe('SearchBar', ()=>{
-   test('renders in document body', ()=>{
 
-      // Setup
-      render(<SearchBar />);
+   describe("renders", ()=>{
+      test("User input text field", ()=>{
+         // Setup
+         render(<SearchBar />);
 
-      // Exercise
-      const searchBar = screen.getByTitle('search-bar');
+         // Exercise
+         const textInput = screen.getByPlaceholderText(/Enter A Song/i);
 
-      // Verify
-      expect(searchBar).toBeInTheDocument();
+         // Verify
+         expect(textInput).toBeInTheDocument();
+      });
+
+      test('Search Button', ()=>{
+
+         // Setup
+         render(<SearchBar />);
+
+         // Exercise
+         const searchButton = screen.getByRole('button')
+
+         // Verify
+         expect(searchButton).toBeInTheDocument();
+      });
    });
+
 });
