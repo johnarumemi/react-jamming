@@ -35,7 +35,7 @@ describe('App', () => {
 
             expect(element.textContent).toMatch(/Jamming/i);
 
-        })
+        });
 
         test("SearchBar component", ()=>{
             const { getByTestId } = render(<App />);
