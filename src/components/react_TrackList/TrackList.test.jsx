@@ -23,12 +23,12 @@ describe('TrackList', () => {
                     albums: "Dummy Artist Album",
                 }
 
-            const {getAllByTestId, getByText} = render(<TrackList tracks={[data]} />)
+            const {queryAllByTestId, queryByText} = render(<TrackList tracks={[data]} />)
 
-            const trackList = getAllByTestId('Track')
+            const trackList = queryAllByTestId('Track')
 
             expect(trackList).toHaveLength(1);
-            expect(getByText(data.name).textContent).toMatch(data.name);
+            expect(queryByText(data.name).textContent).toMatch(data.name);
         });
 
         test("N Tracks", ()=>{
@@ -42,12 +42,12 @@ describe('TrackList', () => {
             }
 
             const dataArray = new Array(N).fill(data);
-            const {getAllByTestId, getAllByText} = render(<TrackList tracks={dataArray} />)
+            const {queryAllByTestId, queryAllByText} = render(<TrackList tracks={dataArray} />)
 
-            const trackList = getAllByTestId('Track')
+            const trackList = queryAllByTestId('Track')
 
             expect(trackList).toHaveLength(N);
-            expect(getAllByText(data.name)[0].textContent).toMatch(data.name);
+            expect(queryAllByText(data.name)[0].textContent).toMatch(data.name);
         });
     });
 

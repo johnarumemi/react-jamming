@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchBar } from "../react_SearchBar/SearchBar";
 import { SearchResults } from "../react_SearchResults/SearchResults";
 import { Playlist } from "../react_Playlist/Playlist";
@@ -6,6 +6,8 @@ import { Playlist } from "../react_Playlist/Playlist";
 import './App.scss';
 
 export function App(){
+    const [searchResults, setSearchResults] = useState([]);
+
     return (
         <div data-testid='app'>
             <h1 aria-level="1">
@@ -13,12 +15,12 @@ export function App(){
             </h1>
 
             <div className="App">
-                {/*<!-- Add a SearchBar component -->*/}
+                {/*<!-- SearchBar component -->*/}
                 <SearchBar />
                 <div className="App-playlist">
-                    {/*<!-- Add a SearchResults component -->*/}
-                    <SearchResults />
-                    {/*<!-- Add a Playlist component -->*/}
+                    {/*<!-- SearchResults component -->*/}
+                    <SearchResults searchResults={searchResults} />
+                    {/*<!-- Playlist component -->*/}
                     <Playlist />
                 </div>
             </div>
