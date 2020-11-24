@@ -7,11 +7,13 @@ import './App.scss';
 
 const fakeTrackList = [
     {
+        id: 1,
         name: "Tiny Dancer",
         artist: "Elton John",
         album: "Madman Across The Water"
     },
     {
+        id: 2,
         name: "Tiny Dancer",
         artist: "Tim McGraw",
         album: "Love Story"

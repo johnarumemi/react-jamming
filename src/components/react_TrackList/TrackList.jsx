@@ -2,10 +2,16 @@ import React from 'react';
 import './TrackList.scss'
 import {Track} from "../react_Track/Track";
 
-export function TrackList({tracks = []}){
+export function TrackList(props){
 
-    const getTracks = () => tracks.map((trackProps, i) => (
-        <Track key={`track-${i}`} {...trackProps}/>
+    const getTracks = () => props.tracks.map( track => (
+        <Track
+            key={track.id}
+            name={track.name}
+            artist={track.artist}
+            album={track.album}
+            isRemoval={props.isRemoval}
+        />
         ));
 
     return (
@@ -13,4 +19,8 @@ export function TrackList({tracks = []}){
             {getTracks()}
         </div>
     );
+}
+
+TrackList.defaultProps = {
+    tracks: []
 }

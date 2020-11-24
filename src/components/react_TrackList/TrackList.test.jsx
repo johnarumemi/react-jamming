@@ -18,6 +18,7 @@ describe('TrackList', () => {
         test("1 Track", ()=>{
 
             const data = {
+                    id: 1,
                     name: "Dummy Track Name",
                     artist: "Dummy Artist Name",
                     albums: "Dummy Artist Album",
@@ -36,12 +37,16 @@ describe('TrackList', () => {
             const N = 10;
 
             const data = {
+                    id: 1,
                     name: "Dummy Track Name",
                     artist: "Dummy Artist Name",
                     albums: "Dummy Artist Album",
             }
 
-            const dataArray = new Array(N).fill(data);
+            const dataArray = new Array(N).fill(10).map((_, i) => (
+                {...data, id:i}
+                ));
+
             const {queryAllByTestId, queryAllByText} = render(<TrackList tracks={dataArray} />)
 
             const trackList = queryAllByTestId('Track')

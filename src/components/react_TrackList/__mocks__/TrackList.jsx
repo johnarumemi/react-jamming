@@ -2,6 +2,6 @@
 import React from 'react';
 
 
-export function TrackList(){
+export function TrackList(props){
     return (<div data-testid='TrackList'>Mock TrackList</div>);
 }
