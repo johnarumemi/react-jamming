@@ -65,10 +65,4 @@ describe('App', () => {
         });
     });
 
-    test("adds tracks", () => {
-
-        render(<App />)
-
-
-    })
 });
