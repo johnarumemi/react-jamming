@@ -59,6 +59,10 @@ export function App(){
         const trackURIs = playlistTracks.map(track => track.uri)
     }
 
+    const search = (searchTerm) => {
+        console.log(searchTerm)
+    }
+
     return (
         <div data-testid='app'>
             <h1 aria-level="1">
@@ -67,7 +71,7 @@ export function App(){
 
             <div className="App">
                 {/*<!-- SearchBar component -->*/}
-                <SearchBar />
+                <SearchBar onSearch={search}/>
                 <div className="App-playlist">
                     {/*<!-- SearchResults component -->*/}
                     <SearchResults
@@ -87,4 +91,3 @@ export function App(){
 
         </div>);
 }
-
