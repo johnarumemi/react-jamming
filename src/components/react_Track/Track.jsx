@@ -3,8 +3,6 @@ import './Track.scss'
 
 export function Track(props){
 
-    const addTrack = props.onAdd
-
     return (
         <div className="Track">
             <div className="Track-information">
@@ -13,7 +11,7 @@ export function Track(props){
             </div>
             <button
                 className="Track-action"
-                onClick={addTrack}
+                onClick={props.handleClick}
             >
                 {props.isRemoval? '-' : '+'}
             </button>

@@ -43,12 +43,17 @@ export function App(){
     const addTrack = (track) => {
 
         const add = playlistTracks.every(playlistTrack => playlistTrack.id !== track.id)
-        console.log(add)
         if (add){
             setPlaylistTracks(prev => [...prev, track]);
-        }
-    }
+        };
+    };
 
+    const removeTrack = (track) => {
+        const newPlaylist = playlistTracks.filter(playlistTrack => playlistTrack.id !== track.id)
+        setPlaylistTracks(newPlaylist)
+    };
+
+    const updatePlaylistName = name => setPlaylistName(name)
 
     return (
         <div data-testid='app'>
@@ -66,9 +71,15 @@ export function App(){
                         onAdd={addTrack}
                     />
                     {/*<!-- Playlist component -->*/}
-                    <Playlist playlistName={playlistName} playlistTracks={playlistTracks}/>
+                    <Playlist
+                        playlistName={playlistName}
+                        onNameChange={updatePlaylistName}
+                        playlistTracks={playlistTracks}
+                        onRemove={removeTrack}
+                    />
                 </div>
             </div>
+
         </div>);
 }
 
