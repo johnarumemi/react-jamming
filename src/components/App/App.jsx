@@ -5,7 +5,7 @@ import { Playlist } from "../react_Playlist/Playlist";
 
 import './App.scss';
 
-const fakeTrackList = [
+const fakeSearchResults = [
     {
         id: 1,
         name: "Tiny Dancer",
@@ -20,10 +20,35 @@ const fakeTrackList = [
     }
 ]
 
+const fakePlaylist = [
+    {
+        id: 3,
+        name: "Tiny Dancer",
+        artist: "Elton John",
+        album: "Madman Across The Water"
+    },
+    {
+        id: 4,
+        name: "Tiny Dancer",
+        artist: "Tim McGraw",
+        album: "Love Story"
+    }
+]
+
 export function App(){
-    const [searchResults, setSearchResults] = useState(fakeTrackList);
+    const [searchResults, setSearchResults] = useState(fakeSearchResults);
     const [playlistName, setPlaylistName] = useState('New Playlist');
-    const [playlistTracks, setPlaylistTracks] = useState(fakeTrackList);
+    const [playlistTracks, setPlaylistTracks] = useState(fakePlaylist);
+
+    const addTrack = (track) => {
+
+        const add = playlistTracks.every(playlistTrack => playlistTrack.id !== track.id)
+        console.log(add)
+        if (add){
+            setPlaylistTracks(prev => [...prev, track]);
+        }
+    }
+
 
     return (
         <div data-testid='app'>
@@ -36,7 +61,10 @@ export function App(){
                 <SearchBar />
                 <div className="App-playlist">
                     {/*<!-- SearchResults component -->*/}
-                    <SearchResults searchResults={searchResults} />
+                    <SearchResults
+                        searchResults={searchResults}
+                        onAdd={addTrack}
+                    />
                     {/*<!-- Playlist component -->*/}
                     <Playlist playlistName={playlistName} playlistTracks={playlistTracks}/>
                 </div>
