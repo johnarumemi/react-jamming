@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-export function Playlist(){
+export function Playlist(props){
 
     return (<div data-testid='Playlist'>Mock Playlist</div>);
 

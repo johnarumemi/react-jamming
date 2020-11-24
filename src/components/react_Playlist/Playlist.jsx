@@ -4,13 +4,13 @@ import './Playlist.scss';
 
 
 
-export function Playlist(){
+export function Playlist(props){
 
     return (
         <div className="Playlist">
             <input defaultValue={'New Playlist'} />
             {/* -- Add a TrackList component -- */}
-            <TrackList />
+            <TrackList tracks={props.playlistTracks}/>
             <button className="Playlist-save">SAVE TO SPOTIFY</button>
         </div>
     );

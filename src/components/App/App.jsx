@@ -5,8 +5,23 @@ import { Playlist } from "../react_Playlist/Playlist";
 
 import './App.scss';
 
+const fakeTrackList = [
+    {
+        name: "Tiny Dancer",
+        artist: "Elton John",
+        album: "Madman Across The Water"
+    },
+    {
+        name: "Tiny Dancer",
+        artist: "Tim McGraw",
+        album: "Love Story"
+    }
+]
+
 export function App(){
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(fakeTrackList);
+    const [playlistName, setPlaylistName] = useState('New Playlist');
+    const [playlistTracks, setPlaylistTracks] = useState(fakeTrackList);
 
     return (
         <div data-testid='app'>
@@ -21,7 +36,7 @@ export function App(){
                     {/*<!-- SearchResults component -->*/}
                     <SearchResults searchResults={searchResults} />
                     {/*<!-- Playlist component -->*/}
-                    <Playlist />
+                    <Playlist playlistName={playlistName} playlistTracks={playlistTracks}/>
                 </div>
             </div>
         </div>);
