@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Track.scss'
 
+export function Track({name, artist, album, isRemoval}){
 
-export function Track(){
-    return (<div title={'track'}>Track</div>);
+    return (
+        <div className="Track">
+            <div className="Track-information">
+                <h3>{name}</h3>
+                <p>{artist || album }</p>
+            </div>
+            <button className="Track-action">{isRemoval? '-' : '+'}</button>
+        </div>
+    );
 }
