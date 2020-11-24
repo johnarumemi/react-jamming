@@ -55,6 +55,10 @@ export function App(){
 
     const updatePlaylistName = name => setPlaylistName(name)
 
+    const savePlaylist = () => {
+        const trackURIs = playlistTracks.map(track => track.uri)
+    }
+
     return (
         <div data-testid='app'>
             <h1 aria-level="1">
@@ -76,6 +80,7 @@ export function App(){
                         onNameChange={updatePlaylistName}
                         playlistTracks={playlistTracks}
                         onRemove={removeTrack}
+                        onSave={savePlaylist}
                     />
                 </div>
             </div>
