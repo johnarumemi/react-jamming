@@ -4,6 +4,7 @@ import { SearchResults } from "../react_SearchResults/SearchResults";
 import { Playlist } from "../react_Playlist/Playlist";
 
 import './App.scss';
+import {Spotify} from "../../api/Spotify/Spotify";
 
 const fakeSearchResults = [
     {
@@ -61,6 +62,7 @@ export function App(){
 
     const search = (searchTerm) => {
         console.log(searchTerm)
+        console.log(Spotify.getClientId())
     }
 
     return (
