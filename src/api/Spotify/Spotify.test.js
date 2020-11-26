@@ -45,7 +45,7 @@ describe("Spotify", ()=>{
             spy.mockRestore();
         })
 
-        test.only("is returned by .getHashFragment()", ()=>{
+        test("is returned by .getHashFragment()", ()=>{
             // Exercise
             Spotify.getHashFragment();
 
@@ -65,4 +65,57 @@ describe("Spotify", ()=>{
 
     })
 
+    describe.skip("access_token", ()=>{
+
+        test("not in hash fragment gives 'error' key", ()=>{
+
+            // Setup
+            const data = {
+                error: "access_denied",
+                state:"123",
+            }
+
+            // hash Fragment
+            const hash = Object.entries(data).reduce(hashCreatorReducer, '#');
+
+            // spyOn returns a mock function, hence you can chain other calls after this
+            const spy = jest.spyOn(Spotify, 'getHashFragment').mockReturnValue(hash);
+
+            // Exercise
+            const access_token = Spotify.getAccessToken();
+
+            // Verify
+            expect(access_token).toBeUndefined();
+        })
+
+        test("returned from hash fragment", ()=>{
+
+            // Setup
+            const data = {
+                access_token: "dummy_token",
+                token_type: "Bearer",
+                expires_in: "3600",
+                state:"123",
+            }
+
+            // hash Fragment
+            const hash = Object.entries(data).reduce(hashCreatorReducer, '#');
+
+            // spyOn returns a mock function, hence you can chain other calls after this
+            const spy = jest.spyOn(Spotify, 'getHashFragment').mockReturnValue(hash);
+
+            // Exercise
+            const access_token = Spotify.getAccessToken();
+
+            // Verify
+            expect(access_token).toMatch(data.access_token);
+
+            spy.mockRestore();
+
+        })
+    });
+
+    describe('request', ()=>{
+
+    });
 })

@@ -62,7 +62,8 @@ export function App(){
 
     const search = (searchTerm) => {
         console.log(searchTerm)
-        console.log(Spotify.getClientId())
+        Spotify.clearAccessToken();
+        console.log(Spotify.getAccessToken())
     }
 
     return (
