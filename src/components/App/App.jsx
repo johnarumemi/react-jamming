@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SearchBar } from "../react_SearchBar/SearchBar";
 import { SearchResults } from "../react_SearchResults/SearchResults";
 import { Playlist } from "../react_Playlist/Playlist";
 
 import './App.scss';
 import {Spotify} from "../../api/Spotify/Spotify";
-
-const fakeSearchResults = [
-    {
-        id: 1,
-        name: "Tiny Dancer",
-        artist: "Elton John",
-        album: "Madman Across The Water"
-    },
-    {
-        id: 2,
-        name: "Tiny Dancer",
-        artist: "Tim McGraw",
-        album: "Love Story"
-    }
-]
+//
+// const fakeSearchResults = [
+//     {
+//         id: 1,
+//         name: "Tiny Dancer",
+//         artist: "Elton John",
+//         album: "Madman Across The Water"
+//     },
+//     {
+//         id: 2,
+//         name: "Tiny Dancer",
+//         artist: "Tim McGraw",
+//         album: "Love Story"
+//     }
+// ]
 
 const fakePlaylist = [
     {
@@ -37,7 +37,7 @@ const fakePlaylist = [
 ]
 
 export function App(){
-    const [searchResults, setSearchResults] = useState(fakeSearchResults);
+    const [searchResults, setSearchResults] = useState([]);
     const [playlistName, setPlaylistName] = useState('New Playlist');
     const [playlistTracks, setPlaylistTracks] = useState(fakePlaylist);
 
@@ -60,10 +60,20 @@ export function App(){
         const trackURIs = playlistTracks.map(track => track.uri)
     }
 
+    useEffect(()=>{
+        const loadAccessToken = ()=> {Spotify.getAccessToken()}
+        window.addEventListener('load', loadAccessToken)
+
+        return () => {
+            window.removeEventListener('load', loadAccessToken)
+        }
+    }, [])
+
     const search = (searchTerm) => {
-        console.log(searchTerm)
-        Spotify.clearAccessToken();
-        console.log(Spotify.getAccessToken())
+        //Spotify.clearAccessToken();
+        Spotify.search(searchTerm).then( data =>{
+            setSearchResults(data)
+        });
     }
 
     return (
