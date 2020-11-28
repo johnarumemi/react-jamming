@@ -1,5 +1,8 @@
 import moment from "moment";
+
+
 const Spotify = {
+
     authorization_endpoint: process.env.REACT_APP_SPOTIFY_AUTHORIZE_ENDPOINT,
     redirect_url: process.env.REACT_APP_SPOTIFY_REDIRECT_URL,
     scope: process.env.REACT_APP_SPOTIFY_SCOPE,
@@ -12,11 +15,14 @@ const Spotify = {
       this.expires_at = '';
       this.hash_params = {};
     },
+
     getRequestUrl(){
         return `https://accounts.spotify.com/authorize?client_id=${this.clientId}&response_type=token&scope=${this.scope}&redirect_uri=${this.redirect_url}`
             .replace(/[\s\n]/, '');
     },
+
     get access_token(){ return this._users_access_token; },
+
     set access_token(value){ this._users_access_token = value; },
 
     get clientId() { return process.env.REACT_APP_SPOTIFY_CLIENT_ID; },
@@ -103,6 +109,7 @@ const Spotify = {
 
         return false
     },
+
     getAccessToken: function() {
 
         if (this.access_token){
@@ -134,6 +141,10 @@ const Spotify = {
     },
 
     async search(searchTerm){
+        if (!searchTerm) {
+            console.debug('empty search term passed in, cancelling search.')
+            return;
+        }
         // GET requests endpoint
         const base_url = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`
 
@@ -173,6 +184,131 @@ const Spotify = {
 
             throw new Error('failed to retrieve Spotify search data');
 
+        } catch (e) {
+            console.error(e)
+        }
+    },
+
+    /*
+        Methods for saving Playlist
+     */
+    async _getUserId(){
+
+        const access_token = this.getAccessToken();
+        const headers = { Authorization: `Bearer ${access_token}` }
+        const base_url = `https://api.spotify.com/v1/me`;
+
+        try {
+            // Get request for user profile data
+            const response = await fetch(base_url,
+                {
+                    method: "GET",
+                    headers: headers
+                })
+
+            if (response.ok){
+
+                // Response is a user object
+                const jsonResponse = await response.json();
+
+                // Get User id from the response object
+                const user_id = jsonResponse.id
+                if (user_id) console.debug('Successfully retrieved Spotify user_id');
+                return  user_id;
+
+            }
+
+            throw new Error('failed to retrieve user id')
+
+        } catch (e) {
+            console.error(e)
+        }
+
+    },
+
+    async _createPlaylist(name){
+        if (!name) return;
+        const user_id = await this._getUserId();
+        if (!user_id) return;
+
+        const access_token = this.getAccessToken();
+        const base_url = `https://api.spotify.com/v1/users/${user_id}/playlists`;
+        const headers = {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": `application/json`
+        };
+
+        const post_data = {
+            name: name,
+            public: true,
+            collaborative: false,
+            description: "Jamming App Playlist"
+        };
+
+        //  region POST method for creating a Playlist
+        try {
+            const response = await fetch(base_url, {
+                method: "POST",
+                body: JSON.stringify(post_data),
+                headers: headers
+            });
+
+            if (response.ok){
+                // Body of the POST request
+                const jsonResponse = await response.json();
+
+                const playlist_id = jsonResponse.id
+                if(playlist_id) console.debug(`Successfully created Playlist ${name}`);
+                return playlist_id;
+
+            }
+
+            throw new Error('failed to create playlist');
+
+        } catch (e) {
+            console.error(e)
+        }
+        // endregion
+    },
+
+    async savePlaylist(name, trackURis) {
+
+        if (!name && !trackURis) return;
+        const playlist_id = await this._createPlaylist(name)
+        if (!playlist_id) return;
+
+        const access_token = this.getAccessToken();
+        const base_url = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`
+        const headers = {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": `application/json`
+        };
+
+        const post_data = {
+            uris: trackURis,
+        };
+
+        try {
+            // Get request for user profile data
+            const response = await fetch(base_url, {
+                method: 'POST',
+                body: JSON.stringify(post_data),
+                headers: headers
+            })
+
+            if (response.ok){
+                const jsonResponse = await response.json();
+
+                const snapshot_id = jsonResponse.id;
+
+                if(snapshot_id) console.debug(`
+                Successfully saved tracks to playlist ${name}. 
+                snapshot id: ${snapshot_id}`);
+
+                return  snapshot_id;
+            }
+
+            throw new Error('failed to save playlist')
         } catch (e) {
             console.error(e)
         }

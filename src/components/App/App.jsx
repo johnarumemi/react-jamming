@@ -39,7 +39,7 @@ const fakePlaylist = [
 export function App(){
     const [searchResults, setSearchResults] = useState([]);
     const [playlistName, setPlaylistName] = useState('New Playlist');
-    const [playlistTracks, setPlaylistTracks] = useState(fakePlaylist);
+    const [playlistTracks, setPlaylistTracks] = useState([]);
 
     const addTrack = (track) => {
 
@@ -58,6 +58,11 @@ export function App(){
 
     const savePlaylist = () => {
         const trackURIs = playlistTracks.map(track => track.uri)
+        Spotify.savePlaylist(playlistName, trackURIs)
+            .then(()=>{
+                setPlaylistName('New Playlist');
+                setPlaylistTracks([]);
+            });
     }
 
     useEffect(()=>{
