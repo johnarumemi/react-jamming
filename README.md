@@ -11,10 +11,15 @@ Website that allows users to search Spotify library, create custom playlist, the
 
 
 ## Introduction
-two to three lines explaining what this does, motivation etc
+This is an initial project as creating an App that interacts with the Spotify API
+to search for tracks, add them to a customer playlist and save the playlist to the
+users account. Future projects will build on this to stream music directly from Spotify
+and other sources.
+
 
 ## Technologies
 + React
++ AJAX via `fetch()`;
 + SCSS
 
 ## Features
@@ -28,17 +33,20 @@ Progress: __WIP__
 
 # Notes
 1) Module Mocking
+
 When mocking a component, ensure its signature exactly matches that of its
 implementations. If the implementation is a named export, mock must also be
 a named export. You can try using `...rest` to simply accept anything passed
  in and just ignore it in main body of the mocked implementation.
  
 2) Jest Hoisting
+
  jest.mock is hoisted to the top of the file, so you can't use anything in the first or
  second parameters of jest.mock other than string literals or closures
  note that you have to enter the path relative to the test file.
 
-3) Using data-testid 
+3) Using data-testid
+
 This is actually great to use in mocks
 ```jsx
 // src/components/react_SearchBar/__mocks__/SearchBar.jsx
@@ -49,3 +57,11 @@ export function SearchBar(){
 ```
 Just remember to set the value of the __data-testid__ to be the component name and when testing use
 `.getByTestId('SearchBar')` to retrieve it. Also best to simply use a `<div>` for this.
+
+
+Creating a Playlist
+1) use below endpoint to create a playlist, note that it will be empty until we add tracks to it in another requests.
+
+```
+https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/
+```
