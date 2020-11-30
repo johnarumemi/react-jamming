@@ -156,16 +156,14 @@ const Spotify = {
             }
         }
 
+        let jsonResponse;
         try {
 
             const response = await fetch(base_url, options)
 
             if (response.ok){
 
-                const jsonResponse = await response.json();
-
-                console.debug(jsonResponse)
-
+                jsonResponse = await response.json();
                 const data = jsonResponse.tracks.items.map( (item) => {
 
                     return {
@@ -178,14 +176,12 @@ const Spotify = {
                 });
 
                 console.debug(data)
-
                 return data;
             }
-
-            throw new Error('failed to retrieve Spotify search data');
-
-        } catch (e) {
-            console.error(e)
+            throw new Error('failed to retrieve Spotify search data\n' + response.statusText);
+        } catch (err) {
+            console.error(err)
+            return new Promise.reject(err.message ? err.message: jsonResponse);
         }
     },
 
@@ -198,6 +194,7 @@ const Spotify = {
         const headers = { Authorization: `Bearer ${access_token}` }
         const base_url = `https://api.spotify.com/v1/me`;
 
+        let jsonResponse;
         try {
             // Get request for user profile data
             const response = await fetch(base_url,
@@ -207,21 +204,18 @@ const Spotify = {
                 })
 
             if (response.ok){
-
                 // Response is a user object
-                const jsonResponse = await response.json();
+                jsonResponse = await response.json();
 
                 // Get User id from the response object
                 const user_id = jsonResponse.id
                 if (user_id) console.debug('Successfully retrieved Spotify user_id');
                 return  user_id;
-
             }
-
             throw new Error('failed to retrieve user id')
-
-        } catch (e) {
-            console.error(e)
+        } catch (err) {
+            console.error(err)
+            return new Promise.reject(err.message? err.message: jsonResponse);
         }
 
     },
@@ -246,6 +240,7 @@ const Spotify = {
         };
 
         //  region POST method for creating a Playlist
+        let jsonResponse;
         try {
             const response = await fetch(base_url, {
                 method: "POST",
@@ -255,18 +250,16 @@ const Spotify = {
 
             if (response.ok){
                 // Body of the POST request
-                const jsonResponse = await response.json();
+                jsonResponse = await response.json();
 
                 const playlist_id = jsonResponse.id
                 if(playlist_id) console.debug(`Successfully created Playlist ${name}`);
                 return playlist_id;
-
             }
-
-            throw new Error('failed to create playlist');
-
-        } catch (e) {
-            console.error(e)
+            throw new Error('failed to create playlist\n' + response.statusText);
+        } catch (err) {
+            console.error(err)
+            return new Promise.reject(err.message?err.message: jsonResponse);
         }
         // endregion
     },
