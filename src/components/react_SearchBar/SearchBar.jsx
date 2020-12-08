@@ -6,9 +6,6 @@ export function SearchBar(props){
     const [searchTerm, setSearchTerm] = useState('')
 
     const handleTermChange = ({target}) => {
-
-        console.log(target.value)
-
         setSearchTerm(target.value)
     }
 
