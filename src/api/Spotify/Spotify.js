@@ -58,19 +58,24 @@ const Spotify = {
         // reduce array of objects with query params and query values into a single Object
         const reducer = (obj, match) => {
 
-            obj[match.groups.key] = match.groups.value;
+            // Below does not work on published gh-pages. missing groups
+            // obj[match.groups.key] = match.groups.value;
+            const matchKey = match[1];
+            const matchValue = match[2];
 
-            Object.defineProperty(obj, match.groups.key, {
-                value: match.groups.value,
+            obj[matchKey] = matchValue;
+
+            Object.defineProperty(obj, matchKey, {
+                value: matchValue,
                 writable: false,
                 enumerable: true,
                 configurable: true
             })
 
-            if (match.groups.key === 'expires_in'){
+            if (matchValue === 'expires_in'){
                 // format
                 const format = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS;
-                const expires_in = Number(match.groups.value);
+                const expires_in = Number(matchValue);
                 const expires_at = moment().add(expires_in, 'seconds').format(format);
 
                 Object.defineProperty(obj, 'expires_at', {
