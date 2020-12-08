@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-jamming/static/css/main.822e30b6.chunk.css",
-    "main.js": "/react-jamming/static/js/main.38cafad1.chunk.js",
-    "main.js.map": "/react-jamming/static/js/main.38cafad1.chunk.js.map",
+    "main.js": "/react-jamming/static/js/main.af7e9e8a.chunk.js",
+    "main.js.map": "/react-jamming/static/js/main.af7e9e8a.chunk.js.map",
     "runtime-main.js": "/react-jamming/static/js/runtime-main.8ddf7db5.js",
     "runtime-main.js.map": "/react-jamming/static/js/runtime-main.8ddf7db5.js.map",
     "static/js/2.2d87950f.chunk.js": "/react-jamming/static/js/2.2d87950f.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.8ddf7db5.js",
     "static/js/2.2d87950f.chunk.js",
     "static/css/main.822e30b6.chunk.css",
-    "static/js/main.38cafad1.chunk.js"
+    "static/js/main.af7e9e8a.chunk.js"
   ]
 }
