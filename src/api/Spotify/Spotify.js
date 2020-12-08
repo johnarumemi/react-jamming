@@ -50,10 +50,7 @@ const Spotify = {
             return null;
         }
 
-        console.debug(`Hash Fragment: ${hashFragment}`)
         const matchArray = Array.from(hashFragment.matchAll(pattern))
-
-        console.debug(matchArray)
 
         // reduce array of objects with query params and query values into a single Object
         const reducer = (obj, match) => {
@@ -141,7 +138,7 @@ const Spotify = {
             // redirect user to get access token
             window.location.assign(this.getRequestUrl());
 
-            console.log("redirecting user to get access token");
+            console.debug("redirecting user to get access token");
 
             setTimeout(() => {
                 window.history.replaceState("", null, '/')
@@ -172,7 +169,10 @@ const Spotify = {
 
             if (response.ok){
 
+                // get json response
                 jsonResponse = await response.json();
+
+                // extract an required fields from json response
                 const data = jsonResponse.tracks.items.map( (item) => {
 
                     return {
@@ -184,6 +184,7 @@ const Spotify = {
                     };
                 });
 
+                // print put response for debug purposes
                 console.debug(data)
                 return data;
             }
