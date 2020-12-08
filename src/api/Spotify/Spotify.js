@@ -50,7 +50,10 @@ const Spotify = {
             return null;
         }
 
+        console.debug(`Hash Fragment: ${hashFragment}`)
         const matchArray = Array.from(hashFragment.matchAll(pattern))
+
+        console.debug(matchArray)
 
         // reduce array of objects with query params and query values into a single Object
         const reducer = (obj, match) => {
@@ -125,7 +128,7 @@ const Spotify = {
             this.update_token_data(this.hash_params);
 
             // wipe access token and URL parameters
-            window.history.pushState("Access Token", null, '/react-jamming');
+            window.history.pushState("Access Token", null, process.env.REACT_APP_PUSHSTATE_URL);
 
             return this.access_token;
 
