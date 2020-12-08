@@ -22,12 +22,33 @@ and other sources.
 + React
 + AJAX via `fetch()`;
 + SCSS
++ Jest + React Testing Library
 
 ## Features
 
 __To Do:__
 
 ## Environment Variables
+
+__.env__
+```.dotenv
+REACT_APP_SPOTIFY_AUTHORIZE_ENDPOINT=https://accounts.spotify.com/authorize
+REACT_APP_SPOTIFY_SCOPE='playlist-modify-public'
+```
+
+__.env.production__
+
+```.dotenv
+REACT_APP_SPOTIFY_REDIRECT_URL=http://johnarumemi.github.io/react-jamming
+REACT_APP_PUSHSTATE_URL=/react-jamming
+```
+
+__.env.development__
+```.dotenv
+PORT=3005
+REACT_APP_SPOTIFY_REDIRECT_URL=http://localhost:$PORT/
+REACT_APP_PUSHSTATE_URL=/
+```
 
 ## Status
 Progress: __WIP__
