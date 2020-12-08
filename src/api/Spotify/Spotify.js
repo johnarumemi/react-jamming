@@ -102,6 +102,7 @@ const Spotify = {
 
     get isHashParamsAvailable(){
         const hash_params = this.parseHash()
+
         if (hash_params && hash_params.access_token && hash_params.expires_in){
             this.hash_params = hash_params
             return true
@@ -124,7 +125,7 @@ const Spotify = {
             this.update_token_data(this.hash_params);
 
             // wipe access token and URL parameters
-            window.history.pushState("Access Token", null, '/');
+            window.history.pushState("Access Token", null, '/react-jamming');
 
             return this.access_token;
 
