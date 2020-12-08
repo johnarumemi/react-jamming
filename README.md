@@ -16,6 +16,7 @@ to search for tracks, add them to a customer playlist and save the playlist to t
 users account. Future projects will build on this to stream music directly from Spotify
 and other sources.
 
+<http://johnarumemi.github.io/react-jamming>
 
 ## Technologies
 + React
