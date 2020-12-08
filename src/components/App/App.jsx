@@ -5,36 +5,7 @@ import { Playlist } from "../react_Playlist/Playlist";
 
 import './App.scss';
 import {Spotify} from "../../api/Spotify/Spotify";
-//
-// const fakeSearchResults = [
-//     {
-//         id: 1,
-//         name: "Tiny Dancer",
-//         artist: "Elton John",
-//         album: "Madman Across The Water"
-//     },
-//     {
-//         id: 2,
-//         name: "Tiny Dancer",
-//         artist: "Tim McGraw",
-//         album: "Love Story"
-//     }
-// ]
 
-const fakePlaylist = [
-    {
-        id: 3,
-        name: "Tiny Dancer",
-        artist: "Elton John",
-        album: "Madman Across The Water"
-    },
-    {
-        id: 4,
-        name: "Tiny Dancer",
-        artist: "Tim McGraw",
-        album: "Love Story"
-    }
-]
 
 export function App(){
     const [searchResults, setSearchResults] = useState([]);
